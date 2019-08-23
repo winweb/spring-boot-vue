@@ -1,9 +1,10 @@
 HELP.md
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+client/dist/
+client/node_modules/
+gradle/wrapper/
+
 
 ### STS ###
 .apt_generated
@@ -30,7 +31,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-client/dist/
-client/node_modules/
-gradle/

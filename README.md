@@ -8,7 +8,7 @@ Please read [Build a Simple CRUD App with Spring Boot and Vue.js](https://develo
 
 ## Getting Started
 
-To run the server, cd into the `spring-boot-vue` folder and run:
+To run the server, run:
 
 ```bash
 ./gradlew bootRun

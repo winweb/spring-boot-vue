@@ -19,3 +19,10 @@ To run the client, cd into the `client` folder and run:
 ```bash
 yarn install && yarn run serve
 ```
+
+
+when switch to spring-boot-vue-router branch(POC about Vue.js router), cd into the `client` folder and run:
+
+```bash
+vue add router
+```

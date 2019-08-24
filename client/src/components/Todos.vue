@@ -198,7 +198,7 @@
         if (!this.editedTodo) {
           return
         }
-        alert(JSON.stringify(todo));
+
         this.$log.info("Item updated:", todo);
         api.updateForId(todo.id, todo.title.trim(), todo.completed).then((response) => {
           this.$log.info("Item updated:", response.data);

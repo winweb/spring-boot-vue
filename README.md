@@ -43,9 +43,20 @@ Will create jar file at `build/libs/todo-app.jar`
 
 ## Docker
 
-Reference: [Docker — multi-stage build example](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
+### Build
 
 	docker build -f Dockerfile -t spring-boot-vue:latest .
-	docker build . -t spring-boot-vue:latest
-	docker run -p 8080:80 spring-boot-vue:latest
 
+### Run
+
+	docker run --rm -p 9000:9000 spring-boot-vue:latest
+
+### Open
+
+http://localhost:9000
+
+**References:**
+
+- [Docker — multi-stage build example](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
+- [Building Java Docker images with Gradle and Docker multistage builds](http://paulbakker.io/java/docker-gradle-multistage/)
+- [Building thin Docker images using multi-stage build for your java apps!](https://aboullaite.me/multi-stage-docker-java/)

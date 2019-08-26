@@ -39,3 +39,13 @@ Will create jar file at `build/libs/todo-app.jar`
 ## Try
 
 	java -jar build/libs/todo-app.jar
+
+
+## Docker
+
+Reference: [Docker — multi-stage build example](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)
+
+	docker build -f Dockerfile -t spring-boot-vue:latest .
+	docker build . -t spring-boot-vue:latest
+	docker run -p 8080:80 spring-boot-vue:latest
+

@@ -4,6 +4,7 @@ build/
 client/dist/
 client/node_modules/
 bin/
+.DS_Store
 
 
 ### STS ###

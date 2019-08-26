@@ -10,19 +10,33 @@ Please read [Build a Simple CRUD App with Spring Boot and Vue.js](https://develo
 
 To run the server, run:
 
-```bash
-./gradlew bootRun
-```
+	./gradlew bootRun
 
 To run the client, cd into the `client` folder and run:
 
-```bash
-yarn install && yarn run serve
-```
+	yarn install && yarn run serve
 
+## Deployment
 
-when switch to spring-boot-vue-router branch(POC about Vue.js router), cd into the `client` folder and run:
+To build client and server package for prepare deployment
 
-```bash
-vue add router
-```
+### Build Client
+
+To build client, cd into the `client` folder and run:
+
+	yarn build
+
+Will generate output at folder `client/dist`
+
+### Build Jar
+
+To build an execute jar run:
+
+	./gradlew build
+
+Will create jar file at `build/libs/todo-app.jar`
+
+## Try
+
+	java -jar build/libs/todo-app.jar
+

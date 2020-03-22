@@ -1,5 +1,6 @@
 package com.hobby.springbootvue;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,7 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+@Slf4j
 @SpringBootApplication
 public class SpringBootVueApplication {
 
@@ -23,6 +25,9 @@ public class SpringBootVueApplication {
 	// Bootstrap some test data into the in-memory database
 	@Bean
 	ApplicationRunner init(TodoRepository repository) {
+
+		log.info("init");
+
 		return args -> {
 			Stream.of("Buy milk", "Eat pizza", "Write tutorial", "Study Vue.js", "Go kayaking").forEach(name -> {
 				Todo todo = new Todo();

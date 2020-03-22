@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
     and listed resources.
  */
 @Component
-public class RestRepositoryConfigurator implements RepositoryRestConfigurer {
+public abstract class RestRepositoryConfigurator implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {

@@ -29,7 +29,7 @@ public class SpringBootVueApplication {
 	@Bean
 	ApplicationRunner init(TodoRepository repository) {
 
-		log.info("init");
+		log.info("initial data");
 
 		return args -> {
 			Stream.of("Buy milk", "Eat pizza", "Write tutorial", "Study Vue.js", "Go kayaking").forEach(name -> {
@@ -50,26 +50,12 @@ public class SpringBootVueApplication {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
+		config.setAllowedOrigins(Collections.singletonList("http://localhost:8081"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		source.registerCorsConfiguration("/**", config);
 		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
-	}
-
-
-	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-		return args -> {
-			log.debug("Let's inspect the beans provided by Spring Boot:");
-
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				log.debug(beanName);
-			}
-		};
 	}
 }

@@ -12,9 +12,15 @@ To run the server, run:
 
 	./gradlew bootRun
 
+Install yarn
+
+    npm install --global yarn
+
 To run the client, cd into the `client` folder and run:
 
-	yarn install && yarn run serve
+	yarn install && yarn run serve -- --port 8080
+
+    npm run serve -- --port 8080
 
 ## Deployment
 
@@ -32,7 +38,7 @@ Will generate output at folder `client/dist`
 
 To build an execute jar run:
 
-	./gradlew build
+	gradlew build
 
 Will create jar file at `build/libs/todo-app.jar`
 

@@ -1,2 +1,8 @@
 server:
     port: 9000
+logging:
+    level:
+        root: ERROR
+        org.springframework.web: INFO
+        com.hobby.springbootvue: DEBUG
+        org.hibernate: INFO

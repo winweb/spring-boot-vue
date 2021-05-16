@@ -2,15 +2,18 @@ package com.hobby.springbootvue;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -34,7 +37,9 @@ public class SpringBootVueApplication {
 				todo.setTitle(name);
 				repository.save(todo);
 			});
-			repository.findAll().forEach(System.out::println);
+
+			//repository.findAll().forEach(System.out::println);
+			repository.findAll().forEach(o -> {log.info(o.toString());});
 		};
 	}
 
@@ -52,5 +57,19 @@ public class SpringBootVueApplication {
 		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
+	}
+
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+			log.debug("Let's inspect the beans provided by Spring Boot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				log.debug(beanName);
+			}
+		};
 	}
 }

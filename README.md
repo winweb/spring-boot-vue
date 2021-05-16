@@ -1,6 +1,6 @@
 # Simple CRUD with Vue.js and Spring Boot
 
-This example app shows how to build a basic CRUD app with Spring Boot 2.1, Spring Data, and Vue.js.
+This example app shows how to build a basic CRUD app with Spring Boot 2.4, Spring Data, and Vue.js 2.x.
 
 Please read [Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue) to see how this app was created.
 
@@ -18,9 +18,7 @@ Install yarn
 
 To run the client, cd into the `client` folder and run:
 
-	yarn install && yarn run serve -- --port 8080
-
-    npm run serve -- --port 8080
+	yarn install && yarn run serve
 
 ## Deployment
 

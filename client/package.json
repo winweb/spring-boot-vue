@@ -12,7 +12,7 @@
     "core-js": "^2.6.12",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
-    "vuejs-logger": "1.5.3"
+    "vuejs-logger": "1.5.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",

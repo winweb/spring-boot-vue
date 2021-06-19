@@ -16,5 +16,8 @@ public class RestRepositoryConfigurator implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         config.exposeIdsFor(Todo.class);
+        
+        // See https://github.com/spring-projects/spring-data-rest/issues/2023
+        config.useHalAsDefaultJsonMediaType(false);
     }
 }

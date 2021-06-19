@@ -6,3 +6,5 @@ logging:
         org.springframework.web: INFO
         com.hobby.springbootvue: DEBUG
         org.hibernate: INFO
+        io.undertow.server: DEBUG
+        io.undertow.websockets: DEBUG

@@ -60,6 +60,12 @@ Will create jar file at `build/libs/todo-app.jar`
 
 http://localhost:9000
 
+### Run Stress test on Windows 10
+
+```bat
+$  C:\xampp\apache\bin\ab.exe -k -p test.json -T application/json -c 10000 -n 100000 http://localhost:9000/todos
+```
+
 **References:**
 
 - [Docker — multi-stage build example](https://medium.com/@shakyShane/lets-talk-about-docker-artifacts-27454560384f)

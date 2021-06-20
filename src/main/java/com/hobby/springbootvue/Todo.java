@@ -1,27 +1,24 @@
 package com.hobby.springbootvue;
 
 import lombok.*;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Entity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
+@Table
 @Data
 @AllArgsConstructor
 @Builder
 public class Todo {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;  
+    @Id
+    private Long id;
 
-  @NonNull
-  private String title;
+    @NonNull
+    private String title;
 
-  private Boolean completed;
+    private Boolean completed;
 
-  public Boolean getCompleted(){
-    return completed == null ? false : completed;
-  }
+    public Boolean getCompleted(){
+        return completed == null ? false : completed;
+    }
 }

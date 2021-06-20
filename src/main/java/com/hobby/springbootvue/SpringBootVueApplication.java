@@ -1,23 +1,22 @@
 package com.hobby.springbootvue;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import reactor.core.publisher.Flux;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -29,37 +28,54 @@ public class SpringBootVueApplication {
 		SpringApplication.run(SpringBootVueApplication.class, args);
 	}
 
-	// Bootstrap some test data into the in-memory database
+	@Autowired
+	TodoRepository repository;
+
 	@Bean
-	ApplicationRunner init(TodoRepository repository) {
-
-		log.info("initial data");
-
+	ApplicationRunner init(DatabaseClient client) {
 		return args -> {
-			Stream.of("Buy milk", "Eat pizza", "Write tutorial", "Study Vue.js", "Go kayaking").forEach(name -> {
-				Todo todo = new Todo();
-				todo.setTitle(name);
-				repository.save(todo);
-			});
+			client.sql("create table IF NOT EXISTS TODO" +
+					"(id SERIAL PRIMARY KEY, text varchar (255) not null, completed boolean default false);").fetch().first().subscribe();
 
-			repository.findAll(PageRequest.of(0, 10, Sort.by("id").descending())).forEach(o -> {log.info(o.toString());});
+			client.sql("DELETE FROM TODO;").fetch().first().subscribe();
+
+			client.sql("INSERT INTO TODO (title, completed) VALUES ('Buy milk', false)").fetch().first().subscribe();
+
+			Stream<Todo> stream = Stream.of(Todo.builder().title("Buy milk").completed(false).build(),
+											Todo.builder().title("This one I have acomplished!").completed(true).build(),
+											new Todo(null, "And this is secret", false));
+
+			// initialize the database
+			Flux<Todo> todoFlux = repository.saveAll(Flux.fromStream(stream));
+
+			if(todoFlux == null) {
+				//prevent null exception when run test case.
+				return;
+			}
+
+			todoFlux
+					.then()
+					.subscribe(); // execute
+
+			repository.last10Records().toIterable().forEach(o -> {
+				log.info(o.toString());
+			});
 		};
 	}
 
 	// Fix the CORS errors (for DEV)
 	@Bean
-	public FilterRegistrationBean simpleCorsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		// *** URL below needs to match the Vue client URL and port ***
-		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
-		config.setAllowedMethods(Collections.singletonList("*"));
-		config.setAllowedHeaders(Collections.singletonList("*"));
-		source.registerCorsConfiguration("/**", config);
-		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		return bean;
+	CorsWebFilter corsWebFilter() {
+		CorsConfiguration corsConfig = new CorsConfiguration();
+		corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+		corsConfig.setMaxAge(8000L);
+		corsConfig.setAllowedMethods(Collections.singletonList("*"));
+		corsConfig.setAllowedHeaders(Collections.singletonList("*"));
+
+		org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfig);
+
+		return new CorsWebFilter(source);
 	}
 
 	//fix HTML5 history mode in Vue

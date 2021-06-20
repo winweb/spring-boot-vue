@@ -19,7 +19,7 @@ RUN gradle build
 
 # 3rd Stage - Build Final Image
 FROM openjdk:8-jre-slim
-EXPOSE 8080
+EXPOSE 9000
 COPY --from=java-builder /home/gradle/app/build/libs/todo-app.jar /app/
 WORKDIR /app
 ENTRYPOINT ["java","-jar","/app/todo-app.jar"]  

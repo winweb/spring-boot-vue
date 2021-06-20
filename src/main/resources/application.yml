@@ -2,17 +2,38 @@ server:
     port: 9000
 logging:
     level:
-        root: ERROR
+        root: INFO
         org.springframework.web: INFO
         com.hobby.springbootvue: DEBUG
         org.hibernate: INFO
         io.undertow.server: DEBUG
         io.undertow.websockets: DEBUG
+        com.zaxxer.hikari: ERROR
+        com.zaxxer.hikari.HikariConfig: DEBUG
 spring:
     datasource:
-        url: jdbc:h2:file:./data/h2;DB_CLOSE_ON_EXIT=FALSE;
+        url: jdbc:h2:file:./data/h2;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;
         username: sa
         password:
+        hikari:
+            minimum-idle: 200
+            maximum-pool-size: 2000
+            idleTimeout: 60000
+            maxLifetime: 2000000
+            connectionTimeout: 30000
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+                useLocalSessionState: true
+                rewriteBatchedStatements: true
+                cacheResultSetMetadata: true
+                cacheServerConfiguration: true
+                elideSetAutoCommits: true
+                maintainTimeStats: false
     jpa:
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
+            connection:
+                provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider

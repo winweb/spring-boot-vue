@@ -10,6 +10,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,8 +42,7 @@ public class SpringBootVueApplication {
 				repository.save(todo);
 			});
 
-			//repository.findAll().forEach(System.out::println);
-			repository.findAll().forEach(o -> {log.info(o.toString());});
+			repository.findAll(PageRequest.of(0, 10, Sort.by("id").descending())).forEach(o -> {log.info(o.toString());});
 		};
 	}
 

@@ -3,11 +3,21 @@ server:
 logging:
     level:
         root: INFO
-        org.springframework.web: INFO
         com.hobby.springbootvue: DEBUG
+        io.netty.buffer: DEBUG
+        io.netty.util: DEBUG
+        org.springframework.boot.context.embedded.netty: DEBUG
+        org.springframework.data.r2dbc: DEBUG
+        org.springframework.web: INFO
         reactor.netty.http.client.HttpClient: DEBUG
+
 spring:
     r2dbc:
         url: r2dbc:h2:file:///./data/h2;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;
         username: sa
         password:
+        pool:
+            initial-size: 100
+            max-size: 1000
+            max-idle-time: 30m
+            validation-query: SELECT 1

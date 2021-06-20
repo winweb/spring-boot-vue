@@ -1,16 +1,19 @@
 package com.hobby.springbootvue;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Entity;
 
-@Table
-@Data  
+@Entity
+@Data
 @AllArgsConstructor
 @Builder
 public class Todo {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;  
 
   @NonNull

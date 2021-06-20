@@ -152,12 +152,12 @@
           return
         }
 
-        api.createNew(value, false).then( (response) => {
+        api.createNew(value, this.visibility == 'completed').then( (response) => {
           this.$log.debug("New item created:", response);
           this.todos.push({
             id: response.data.id,
             title: value,
-            completed: false
+            completed: response.data.completed
           })
         }).catch((error) => {
           this.$log.debug(error);

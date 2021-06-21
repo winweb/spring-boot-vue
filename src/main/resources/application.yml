@@ -4,8 +4,11 @@ logging:
     level:
         root: INFO
         com.hobby.springbootvue: DEBUG
-        io.netty.buffer: DEBUG
+        #io.netty.buffer: DEBUG
         io.netty.util: DEBUG
+        #io.r2dbc.spi: DEBUG
+        #io.r2dbc.pool: DEBUG
+        #io.r2dbc.h2: DEBUG
         org.springframework.boot.context.embedded.netty: DEBUG
         org.springframework.data.r2dbc: DEBUG
         org.springframework.web: INFO
@@ -17,7 +20,8 @@ spring:
         username: sa
         password:
         pool:
-            initial-size: 100
-            max-size: 1000
+            initial-size: 1000
+            max-size: 2000
             max-idle-time: 30m
             validation-query: SELECT 1
+            enabled: true

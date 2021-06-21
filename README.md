@@ -46,7 +46,7 @@ Will create jar file at `build/libs/todo-app.jar`
 
 ## Try for Stress Test
 
-    java -jar build/libs/todo-app.jar -server -Xms256m -Xmx1G -Xshareclasses -Xscmx -XX:+UseParNewGC -XX:CMSParallelRemarkEnabled -XX:+ParallelRefProcEnabled -XX:+CMSClassUnloadingEnabled -XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly
+    java -jar build/libs/todo-app.jar -server -Xms2G -Xmx2G -Xshareclasses -XX:+UseG1GC -XX:+UseParNewGC -XX:CMSParallelRemarkEnabled -XX:+ParallelRefProcEnabled -XX:+CMSClassUnloadingEnabled -XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly -XX:TieredStopAtLevel=1 -noverify
 
 =======
 
@@ -67,7 +67,7 @@ http://localhost:9000
 ### Run Stress test on Windows 10
 
 ```bat
-$  C:\xampp\apache\bin\ab.exe -k -p test.json -T application/json -c 15000 -n 200000 http://localhost:9000/todos
+$  C:\xampp\apache\bin\ab.exe -k -p test.json -T application/json -n 1000000 http://localhost:9000/todos
 ```
 
 **References:**

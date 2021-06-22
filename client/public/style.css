@@ -250,7 +250,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li .destroy:after {
-    content: '×';
+    content: 'x';
 }
 
 .todo-list li:hover .destroy {
@@ -407,10 +407,6 @@ body {
     padding:10px;
     background-color: #af5b5e;
     border-radius: 5px;
-}
-
-body {
-    padding-top: 100px;
 }
 
 .logout-link {

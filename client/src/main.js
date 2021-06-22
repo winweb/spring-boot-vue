@@ -1,10 +1,11 @@
-import Vue from 'vue'
-import App from './App'
+import App from '@/App.vue'
+import { createApp } from "vue";
+import  createRouter  from './router'
+import VueLogger from 'vuejs3-logger';
 
-Vue.config.productionTip = false
+const app = createApp(App)
 
-import VueLogger from 'vuejs-logger';
-import router from './router'
+app.use(createRouter)
 
 const options = {
   isEnabled: true,
@@ -16,12 +17,11 @@ const options = {
   showConsoleColors: true
 };
 
-Vue.use(VueLogger, options);
+app.use(VueLogger, options);
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  template: '<App/>',
-  router,
-  components: { App }
-});
+app.mount('#app')
+
+
+
+
+

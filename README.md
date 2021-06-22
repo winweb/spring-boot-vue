@@ -1,6 +1,6 @@
 # Simple CRUD with Vue.js and Spring Boot
 
-This example app shows how to build a basic CRUD app with Spring Boot 2.5, Spring Data, and Vue.js 2.x.
+This example app shows how to build a basic CRUD app with Spring Boot 2.5.x, Spring Data, and Vue.js 3.x.
 
 Please read [Build a Simple CRUD App with Spring Boot and Vue.js](https://developer.okta.com/blog/2018/11/20/build-crud-spring-and-vue) to see how this app was created.
 
@@ -46,7 +46,7 @@ Will create jar file at `build/libs/todo-app.jar`
 
 ## Try for Stress Test
 
-    java -jar build/libs/todo-app.jar -server -Xms2G -Xmx2G -Xshareclasses -XX:+UseG1GC -XX:+UseParNewGC -XX:CMSParallelRemarkEnabled -XX:+ParallelRefProcEnabled -XX:+CMSClassUnloadingEnabled -XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly -XX:TieredStopAtLevel=1 -noverify
+    java -jar build/libs/todo-app.jar -server -Xms2G -Xmx2G -Xshareclasses -XX:+UseParNewGC -XX:CMSParallelRemarkEnabled -XX:+ParallelRefProcEnabled -XX:+CMSClassUnloadingEnabled -XX:CMSInitiatingOccupancyFraction=80 -XX:+UseCMSInitiatingOccupancyOnly -XX:TieredStopAtLevel=1 -noverify
 
 =======
 

@@ -250,7 +250,7 @@ label[for='toggle-all'] {
 }
 
 .todo-list li .destroy:after {
-    content: 'x';
+    content: '×';
 }
 
 .todo-list li:hover .destroy {

@@ -12,4 +12,4 @@ run: build
 
 .PHONY: run-vue
 run-vue:
-	yarn install && yarn run serve
+	cd client && yarn install && yarn run serve

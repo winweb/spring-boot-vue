@@ -45,7 +45,7 @@ public class SpringBootVueApplication {
 	ApplicationRunner init(DatabaseClient client) {
 		return args -> {
 			client.sql("create table IF NOT EXISTS TODO" +
-					"(id SERIAL PRIMARY KEY, text varchar (255) not null, completed boolean default false);").fetch().first().subscribe();
+					"(id SERIAL PRIMARY KEY, title varchar (255) not null, completed boolean default false);").fetch().first().subscribe();
 
 			client.sql("DELETE FROM TODO;").fetch().first().subscribe();
 

@@ -19,6 +19,6 @@ public class Todo {
     private Boolean completed;
 
     public Boolean getCompleted(){
-        return completed == null ? false : completed;
+        return completed != null && completed;
     }
 }

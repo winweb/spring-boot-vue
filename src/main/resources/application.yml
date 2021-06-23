@@ -16,7 +16,7 @@ logging:
 
 spring:
     r2dbc:
-        url: r2dbc:h2:file:///./data/h2;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;
+        url: r2dbc:h2:file:///./data/h2;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;CACHE_SIZE=65536;LOG=0;UNDO_LOG=0;
         username: sa
         password:
         pool:

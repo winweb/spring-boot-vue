@@ -20,6 +20,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -44,22 +45,32 @@ public class SpringBootVueApplication {
 	@Bean
 	ApplicationRunner init(DatabaseClient client) {
 		return args -> {
-			client.sql("create table IF NOT EXISTS TODO" +
-					"(id SERIAL PRIMARY KEY, title varchar (255) not null, completed boolean default false);").fetch().first().subscribe();
 
-			client.sql("DELETE FROM TODO;").fetch().first().subscribe();
+			log.debug("prepare data");
+			client.sql(
+					"CREATE TABLE IF NOT EXISTS TODO(" +
+						"id SERIAL PRIMARY KEY, " +
+						"title VARCHAR (255) NOT NULL, " +
+						"completed BOOLEAN DEFAULT FALSE" +
+					");"
+			).fetch().all().blockLast(Duration.ofSeconds(10));
 
-			client.sql("INSERT INTO TODO (title, completed) VALUES ('Buy milk', false)").fetch().first().subscribe();
+			client.sql(
+					"INSERT INTO TODO (title, completed) VALUES ('Buy milk 1', false),('Buy milk 2', false)"
+			).fetch().first().subscribe();
 
-			Stream<Todo> stream = Stream.of(Todo.builder().title("Buy milk").completed(false).build(),
-											Todo.builder().title("This one I have acomplished!").completed(true).build(),
-											new Todo(null, "And this is secret", false));
+			Stream<Todo> stream = Stream.of(
+					Todo.builder().title("Buy milk 3").build(),
+					Todo.builder().title("This one I have acomplished!").completed(true).build(),
+					new Todo(null, "And this is secret", false)
+			);
 
 			// initialize the database
 			Flux<Todo> todoFlux = repository.saveAll(Flux.fromStream(stream));
 
 			if(todoFlux == null) {
 				//prevent null exception when run test case.
+				log.debug("todoFlux is null");
 				return;
 			}
 

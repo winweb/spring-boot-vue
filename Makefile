@@ -1,10 +1,10 @@
 .PHONY: build-vue
 build-vue:
-	cd client && yarn build
+	cd client && yarn install && yarn build
 
 .PHONY: build
 build: build-vue
-	gradlew build
+	./gradlew build
 
 .PHONY: run
 run: build
@@ -12,4 +12,4 @@ run: build
 
 .PHONY: run-vue
 run-vue:
-	cd client && yarn install && yarn run serve
+	yarn install && yarn run serve
